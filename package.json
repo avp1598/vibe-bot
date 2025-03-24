@@ -25,6 +25,8 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
-    "@tribesxyz/ayaos": "^0.0.33"
+    "@tribesxyz/ayaos": "^0.0.33",
+    "express": "^4.21.2",
+    "googleapis": "^148.0.0"
   }
 }
