@@ -60,3 +60,5 @@ cd vibe-bot
 bun install
 bun dev
 ```
+
+> built using [ayaos](https://github.com/tribes-protocol/ayaos)
