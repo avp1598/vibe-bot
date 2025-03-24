@@ -98,3 +98,10 @@ Let me know if you want me to analyze transitions or tempo-match them for you.
 ---
 
 ## 🚀 Getting Started
+
+```bash
+git clone https://github.com/avp1598/vibe-bot.git
+cd vibe-bot
+bun install
+bun dev
+```
