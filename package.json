@@ -3,7 +3,9 @@
   "module": "index.ts",
   "type": "module",
   "scripts": {
-    "dev": "tsx watch index.ts"
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "lint": "eslint src/**/*.ts"
   },
   "devDependencies": {
     "@types/bun": "latest",
