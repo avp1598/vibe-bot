@@ -1,10 +1,6 @@
 import type { Action, Content, HandlerCallback, IAyaRuntime, Memory, State } from '@tribesxyz/ayaos'
 
-// FIXME: fix types
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { composeContext, generateObject, ModelClass } from '@elizaos/core'
-
-import { ayaLogger } from '@tribesxyz/ayaos'
+import { ayaLogger, composeContext, generateObject, ModelClass } from '@tribesxyz/ayaos'
 import { z } from 'zod'
 
 const PlaylistScoringProfileSchema = z.object({
