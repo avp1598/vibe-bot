@@ -1,13 +1,13 @@
-import { Agent, ayaLogger } from "@tribesxyz/ayaos";
+import { Agent, ayaLogger } from '@tribesxyz/ayaos'
 
-async function main() {
+async function main(): Promise<void> {
   const agent = new Agent({
-    dataDir: "data",
-  });
+    dataDir: 'data'
+  })
 
-  await agent.start();
+  await agent.start()
 
-  ayaLogger.info("Agent started with ID:", agent.agentId);
+  ayaLogger.info('Agent started with ID:', agent.agentId)
 }
 
-main().catch(console.error);
+main().catch(console.error)
