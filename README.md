@@ -1,99 +1,100 @@
 # 🎧 VibeBot
 
-**"Your personal AI DJ mixing assistant."**  
-VibeBot helps DJs, producers, and music lovers curate smooth transitions, generate vibe-perfect playlists, and manipulate tracks with deep intelligence — from BPM/key matching to stem extraction.
+**"Your personal AI-powered music curator."**
+
+VibeBot is your plug for discovering 🔥 new music — from mainstream drops to underground gems.  
+It generates **deeply personalized playlists** based on your taste, your mood, and the moment.  
+Whether you’re vibing solo, throwing a house party, or exploring new sonic textures, VibeBot taps into a curated music brain trained on **official + unofficial releases**, stem-sourced transitions, and daily music drops across the internet.
 
 ![VibeBot Banner](./banner.png)
 
 ---
 
-**Note: VibeBot is currently in alpha and is not ready for production use. Features and functionalities are subject to change as we continue to develop and improve the platform.**
+> **Note:** VibeBot is currently in **alpha** — actively learning, evolving, and vibing.  
+> Expect rapid updates, better personalization, and deeper music understanding over time.
 
 ---
 
-## ✨ Features
+## ✨ Core Features
 
-- 🎛 **Smart Transitions**  
-  Get recommendations for the next track based on BPM, key, and vibe — perfect for live DJ sets and mixes.
+- 🧠 **Prompt-Based Playlist Generator**  
+  Drop a vibe in natural language ("late night spacey trap like Don Toliver x Travis") — VibeBot builds the perfect sequence.
 
-- 🎶 **Playlist Generator**  
-  Create seamless playlists around specific moods, genres, or artists using clustering and embedding models.
+- 🔍 **Underground & Mainstream Discovery Engine**  
+  Stay ahead of the curve with a blend of fresh heat from SoundCloud, YouTube, TikTok, and official releases — all tagged and indexed daily.
 
-- 🧠 **Contextual Chat**  
-  Ask anything from "what’s a good follow-up to this track?" to "make me a banger house party mix" — VibeBot understands.
+- 🎚 **AI-Curated Transitions**  
+  Leverages metadata, BPM/key matching, and real-world DJ sets to generate transition-aware playlists that flow.
 
-- 🎧 **Audio Stem Extraction**  
-  Automatically separate vocals and instrumentals from any song using AI-powered tools.
+- 🔗 **Transition Memory**  
+  Tracks which songs blend well together based on crowd-tested and AI-learned transitions.
 
-- 🛠 **Tempo & Pitch Adjustment**  
-  Match BPM or keys between tracks effortlessly to ensure smooth transitions.
+- 💡 **Vibe Intelligence**  
+  Analyzes song metadata + vibe descriptors (adjectives, genre, drop type, energy) to match your mood and setting.
 
-- 🔎 **Track Intelligence**  
-  Retrieve BPM, key, genre, and more for any song using song metadata APIs.
+- 🧾 **Transparent Taste**  
+  Every playlist comes with track-level explanations: why it was picked, what vibe it matches, and how it fits into the flow.
 
-- 📥 **Track Downloader**  
-  Pull and prep audio files directly within the agent (supports local and cloud sources).
-
----
-
-## 🧠 Example Conversations
-
-### 🎚️ Conversation 1 — Mixing Suggestions + Stems
-
-**Q:** Can you recommend a deep Metro Boomin instrumental that would work well with Kendrick Lamar's _HUMBLE._?
-
-**A:** Try using the instrumental from _All The Money_ by Metro Boomin. It's at 140 BPM, so you'll want to slow down _HUMBLE._ by about 10 BPM to match for a smoother blend.
-
-**Q:** Can you rip out the instrumental and the acapella for me?
-
-**A:** Got it. Give me a moment to separate the stems...
-
-**A:** Done ✅ — `humble_acapella.mp3` & `all_the_money_instrumental.mp3` are ready.
+- 📦 **Personal Crate Curation**  
+  Import your YouTube Likes and tag your music. VibeBot learns your style and evolves with your taste.
 
 ---
 
-### 🎉 Conversation 2 — Party Playlist Generation
+## 🔥 Example Use Cases
 
-**Q:** I’m throwing a house party and want a high-energy hip-hop playlist. Think Travis Scott and Metro Boomin vibes. Keep transitions smooth.
+### 🧠 Conversation 1 — New Music Exploration
 
-**A:** Sounds fun! I’ll generate a playlist that keeps the energy up and matches BPM/key for seamless transitions.
+**Q:** Give me a moody, emotional hip-hop playlist like 6lack x Brent Faiyaz but with less mainstream songs.
 
-**A:** Here’s a 10-track playlist to get you started: `https://youtube.com/playlist-link`
+**A:** Say less. I’ll pull some underground R&B/hip-hop blends with low popularity scores but heavy soul.  
+Here’s a 12-track playlist built for solo night drives: `https://youtube.com/playlist-link`
 
 ---
 
-### 🔁 Conversation 3 — DJ Mix Transition Help
+### 🎉 Conversation 2 — Personalized Party Vibes
 
-**Q:** I’m in the middle of a hip-hop DJ mix. Just played _Highest in the Room_ by Travis Scott. What track should I drop next for a smooth transition?
+**Q:** I want a party playlist that slaps. Think Travis + Metro Boomin energy, but surprise me with some unreleased or flipped remixes.
 
-**A:** Based on the BPM and key, here are some great options to follow up with:
+**A:** Bet. Mixing official bangers with some SoundCloud-level edits.  
+Transitions are smooth, BPM stays above 115.  
+Playlist dropped: `https://youtube.com/playlist-link`
 
-- _After Party_ – Don Toliver
-- _No Bystanders_ – Travis Scott
-- _Ric Flair Drip_ – Offset & Metro Boomin
-- _Praise The Lord_ – A$AP Rocky ft. Skepta
+---
 
-Let me know if you want me to analyze transitions or tempo-match them for you.
+### 🔁 Conversation 3 — Daily Drop Recommendations
+
+**Q:** What’s new today I might like? I want something dark, bouncy, and not chart-topping.
+
+**A:** Here’s what just got indexed that matches your vibe:
+
+- **Artist A – track** (underground bounce)
+- **Artist B – unreleased freestyle**
+- **Artist C – dark synthy remix of Future’s “WAIT FOR U”**
+
+All picked just for you. Want me to build a playlist outta these?
 
 ---
 
 ## 💸 Monetization
 
 - **Free Plan**  
-  Stake a small amount of $VIBE to access core features.
+  Access vibe-based playlists, music recommendations, and tagging tools — powered by your curation.
 
 - **Premium Plan**  
-  $20/month via Stripe — unlocks advanced stem separation, unlimited playlists, and faster processing.
+  $20/month via Stripe  
+  Unlocks:
+  - Unlimited playlist generation
+  - Playlist download tools (YouTube > audio)
+  - Early access to new AI models
 
 ---
 
-## 🛠 Tools Required / Integrated
+## 🛠 Powered By
 
-- 🎵 Song Info Retrieval (BPM + Key)
-- 🎙️ Audio Separation (Stem splitting)
-- ⏱ Audio Processing (Tempo, pitch, alignment)
-- 📊 Playlist Clustering (Embeddings + ML)
-- 🔊 Audio Playback & Preview
+- 🧠 Embedding & Semantic Search (OpenAI/Cohere)
+- 🧾 Custom Metadata Indexing (Title, BPM, Key, Mood, Vibe)
+- 🧮 Vector DB for vibe search (pgvector)
+- 🧠 Scoring engine for intent-to-playlist matching
 
 ---
 
