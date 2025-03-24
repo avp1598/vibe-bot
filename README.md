@@ -27,7 +27,7 @@ VibeBot helps DJs, producers, and music lovers curate smooth transitions, genera
 - 🔎 **Track Intelligence**  
   Retrieve BPM, key, genre, and more for any song using song metadata APIs.
 
-- 📥 **Track Downloader (WIP)**  
+- 📥 **Track Downloader**  
   Pull and prep audio files directly within the agent (supports local and cloud sources).
 
 ---
