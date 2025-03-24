@@ -7,6 +7,10 @@ VibeBot helps DJs, producers, and music lovers curate smooth transitions, genera
 
 ---
 
+**Note: VibeBot is currently in alpha and is not ready for production use. Features and functionalities are subject to change as we continue to develop and improve the platform.**
+
+---
+
 ## ✨ Features
 
 - 🎛 **Smart Transitions**  
@@ -35,7 +39,7 @@ VibeBot helps DJs, producers, and music lovers curate smooth transitions, genera
 ## 💸 Monetization
 
 - **Free Plan**  
-  Stake a small amount of AgentCoin to access core features.
+  Stake a small amount of $VIBE to access core features.
 
 - **Premium Plan**  
   $20/month via Stripe — unlocks advanced stem separation, unlimited playlists, and faster processing.
@@ -53,12 +57,3 @@ VibeBot helps DJs, producers, and music lovers curate smooth transitions, genera
 ---
 
 ## 🚀 Getting Started
-
-```bash
-git clone https://github.com/avp1598/vibe-bot.git
-cd vibe-bot
-bun install
-bun dev
-```
-
-> built using [ayaos](https://github.com/tribes-protocol/ayaos)
