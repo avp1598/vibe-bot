@@ -14,7 +14,7 @@ const youtube = google.youtube({
   auth: oauth2Client
 })
 
-async function createPlaylist(title: string, videoIds: string[]): Promise<void> {
+export async function createPlaylist(title: string, videoIds: string[]): Promise<void> {
   const res = await youtube.playlists.insert({
     part: ['snippet', 'status'],
     requestBody: {
@@ -47,11 +47,3 @@ async function createPlaylist(title: string, videoIds: string[]): Promise<void> 
     console.log(`→ Added video: ${videoId}`)
   }
 }
-
-createPlaylist('🔥 Travis + Metro Heat', ['7EmZj9GB1TI', 'kH6jeLpyetE', 'tmzQFthKCus'])
-  .then(() => {
-    console.log('✅ Playlist created successfully')
-  })
-  .catch((error) => {
-    console.error('❌ Error creating playlist:', error)
-  })
