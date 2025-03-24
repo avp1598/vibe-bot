@@ -2,10 +2,17 @@
   "name": "vibe-bot",
   "module": "index.ts",
   "type": "module",
+  "scripts": {
+    "dev": "tsx watch index.ts"
+  },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "tsx": "^4.19.3"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@tribesxyz/ayaos": "^0.0.33"
   }
 }
