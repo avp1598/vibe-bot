@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "build": "tsc",
-    "lint": "eslint src/**/*.ts"
+    "lint": "eslint src/**/*.ts",
+    "seeder": "bun run src/spotify/seeder.ts"
   },
   "devDependencies": {
     "@types/bun": "latest",
@@ -26,6 +27,7 @@
   },
   "dependencies": {
     "@tribesxyz/ayaos": "0.0.34",
+    "csv-writer": "^1.6.0",
     "express": "^4.21.2",
     "googleapis": "^148.0.0",
     "zod": "^3.24.2"
