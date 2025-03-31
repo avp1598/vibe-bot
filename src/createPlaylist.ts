@@ -64,9 +64,9 @@ Respond with a JSON object only. No explanations or additional text.
 `
 
 export const parsePlaylistPromptAction: Action = {
-  name: 'PARSE_PLAYLIST_PROMPT',
-  similes: ['GET_SCORING_PROFILE', 'ANALYZE_VIBE_PROMPT'],
-  description: 'Parses a user music prompt and generates a scoring profile',
+  name: 'GENERATE_PLAYLIST',
+  similes: ['CREATE_PLAYLIST', 'GENERATE_PLAYLIST'],
+  description: 'Generates a playlist params based on a user prompt',
   validate: async () => true,
   handler: async (
     runtime: IAyaRuntime,
@@ -75,7 +75,7 @@ export const parsePlaylistPromptAction: Action = {
     options?: { [key: string]: unknown },
     callback?: HandlerCallback
   ): Promise<boolean> => {
-    ayaLogger.info('Starting PARSE_PLAYLIST_PROMPT handler...')
+    ayaLogger.info('Starting GENERATE_PLAYLIST handler...')
 
     if (!state) {
       state = await runtime.composeState(message)

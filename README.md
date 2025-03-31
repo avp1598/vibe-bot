@@ -3,10 +3,10 @@
 **"Your personal AI-powered music curator."**
 
 VibeBot is your plug for discovering 🔥 new music — from mainstream drops to underground gems.  
-It generates **deeply personalized playlists** based on your taste, your mood, and the moment.  
-Whether you’re vibing solo, throwing a house party, or exploring new sonic textures, VibeBot taps into a curated music brain trained on **official + unofficial releases**, stem-sourced transitions, and daily music drops across the internet.
+It generates **deeply personalized playlists** based on your taste, your mood, and the artists you vibe with.  
+Whether you're chilling solo, throwing a house party, or exploring new sonic textures, VibeBot leverages cutting-edge AI to find tracks that match your exact vibe.
 
-![VibeBot Banner](./banner.png)
+![VibeBot Banner](./banner.webp)
 
 ---
 
@@ -17,84 +17,95 @@ Whether you’re vibing solo, throwing a house party, or exploring new sonic tex
 
 ## ✨ Core Features
 
-- 🧠 **Prompt-Based Playlist Generator**  
-  Drop a vibe in natural language ("late night spacey trap like Don Toliver x Travis") — VibeBot builds the perfect sequence.
+- 🧠 **Smart Playlist Generator**  
+  Tell us your favorite artists, describe the vibe you want ("chill," "hypnotic," "energetic"), and set any time constraints — VibeBot builds the perfect sequence.
 
-- 🔍 **Underground & Mainstream Discovery Engine**  
-  Stay ahead of the curve with a blend of fresh heat from SoundCloud, YouTube, TikTok, and official releases — all tagged and indexed daily.
+- 🔍 **Advanced Music Embedding**  
+  Using CLMR (Contrastive Learning of Musical Representations) technology to understand the actual sonic qualities of each track, not just metadata.
 
-- 🎚 **AI-Curated Transitions**  
-  Leverages metadata, BPM/key matching, and real-world DJ sets to generate transition-aware playlists that flow.
+- 🎚 **Sonic Similarity Search**  
+  Sophisticated vector search finds songs that genuinely sound similar based on their audio characteristics, not just genre tags.
 
-- 🔗 **Transition Memory**  
-  Tracks which songs blend well together based on crowd-tested and AI-learned transitions.
+- 🧮 **Progressive Filter Relaxation**  
+  Our intelligent algorithm progressively relaxes your criteria when needed to ensure you always get a full playlist that stays true to your original request.
 
 - 💡 **Vibe Intelligence**  
-  Analyzes song metadata + vibe descriptors (adjectives, genre, drop type, energy) to match your mood and setting.
+  Understand songs beyond basic metadata using rich adjective tagging that captures mood, energy, and sonic texture.
 
-- 🧾 **Transparent Taste**  
-  Every playlist comes with track-level explanations: why it was picked, what vibe it matches, and how it fits into the flow.
+- 🔄 **Musical Journey Creation**  
+  Playlists evolve naturally between tracks, creating a cohesive listening experience that flows from one song to the next.
 
-- 📦 **Personal Crate Curation**  
-  Import your YouTube Likes and tag your music. VibeBot learns your style and evolves with your taste.
+- 📦 **Instant Playback Integration**  
+  Every song in your playlist is instantly available to play through YouTube integration.
 
 ---
 
 ## 🔥 Example Use Cases
 
-### 🧠 Conversation 1 — New Music Exploration
+### 🧠 Conversation 1 — Artist-Based Discovery
 
-**Q:** Give me a moody, emotional hip-hop playlist like 6lack x Brent Faiyaz but with less mainstream songs.
+**Q:** Create a playlist with Travis Scott, 21 Savage, and Metro Boomin that feels chill.
 
-**A:** Say less. I’ll pull some underground R&B/hip-hop blends with low popularity scores but heavy soul.  
-Here’s a 12-track playlist built for solo night drives: `https://youtube.com/playlist-link`
-
----
-
-### 🎉 Conversation 2 — Personalized Party Vibes
-
-**Q:** I want a party playlist that slaps. Think Travis + Metro Boomin energy, but surprise me with some unreleased or flipped remixes.
-
-**A:** Bet. Mixing official bangers with some SoundCloud-level edits.  
-Transitions are smooth, BPM stays above 115.  
-Playlist dropped: `https://youtube.com/playlist-link`
+**A:** Got you covered! Here's a playlist featuring these artists with their most laid-back tracks and some sonically similar vibes that match the chill energy you're looking for.
 
 ---
 
-### 🔁 Conversation 3 — Daily Drop Recommendations
+### 🎉 Conversation 2 — Era & Mood Exploration
 
-**Q:** What’s new today I might like? I want something dark, bouncy, and not chart-topping.
+**Q:** I want music that feels hypnotic and dreamy, mostly from artists before 2020.
 
-**A:** Here’s what just got indexed that matches your vibe:
-
-- **Artist A – track** (underground bounce)
-- **Artist B – unreleased freestyle**
-- **Artist C – dark synthy remix of Future’s “WAIT FOR U”**
-
-All picked just for you. Want me to build a playlist outta these?
+**A:** Perfect! I've crafted a hypnotic playlist with songs released before 2020. These tracks share similar sonic characteristics and maintain that dreamy atmosphere throughout.
 
 ---
 
-## 💸 Monetization
+### 🔄 Conversation 3 — Mixed Criteria Playlist
 
-- **Free Plan**  
-  Access vibe-based playlists, music recommendations, and tagging tools — powered by your curation.
+**Q:** Give me 15 tracks that sound like early Drake but with newer artists that match his emotional vibe.
 
-- **Premium Plan**  
-  $20/month via Stripe  
-  Unlocks:
-  - Unlimited playlist generation
-  - Playlist download tools (YouTube > audio)
-  - Early access to new AI models
+**A:** Here's your playlist with 15 tracks that capture that emotional Drake essence but with contemporary artists. I've used sonic similarity to find tracks that genuinely match his early sound.
 
 ---
 
-## 🛠 Powered By
+## 🛠 Under The Hood
 
-- 🧠 Embedding & Semantic Search (OpenAI/Cohere)
-- 🧾 Custom Metadata Indexing (Title, BPM, Key, Mood, Vibe)
-- 🧮 Vector DB for vibe search (pgvector)
-- 🧠 Scoring engine for intent-to-playlist matching
+- **CLMR Embedding Model**: Converts complex audio characteristics into vector embeddings
+- **ChromaDB**: Vector database for lightning-fast similarity search
+- **Flask API**: Simple, reliable backend for playlist generation requests
+- **Progressive Relaxation Algorithm**: Smart filtering system that ensures you always get the number of songs you request
+- **YouTube Integration**: Seamless playback of your generated playlists
+
+---
+
+## 📡 API Endpoints
+
+### Generate Playlist
+
+```
+POST /generate-playlist
+
+{
+  "artists": ["Travis Scott", "21 Savage", "Offset"],
+  "adjectives": ["Chill", "Hypnotic"],
+  "maxReleaseDate": 2022,
+  "numSongs": 10
+}
+```
+
+Returns an array of YouTube IDs that can be played directly:
+
+```
+{
+  "playlist": ["dGdZjaZRpbE", "EGJ7lxoRhlA", "lgj851mZcfA", "ZzqABxPOQZE", ...]
+}
+```
+
+### Stream Song
+
+```
+GET /song/{youtube_id}
+```
+
+Streams the audio file for the requested YouTube ID.
 
 ---
 
@@ -103,6 +114,20 @@ All picked just for you. Want me to build a playlist outta these?
 ```bash
 git clone https://github.com/avp1598/vibe-bot.git
 cd vibe-bot
-bun install
-bun dev
+pip install -r requirements.txt
+python server.py
 ```
+
+Ensure you have ChromaDB set up with embedded songs before running the server.
+
+---
+
+## 🌐 How It Works
+
+1. **Song Embedding**: Each track is processed through the CLMR model to create a 1024-dimensional vector capturing its sonic qualities
+2. **Metadata Enrichment**: Songs are tagged with artist, release date, and descriptive adjectives
+3. **Vector Storage**: All embeddings and metadata are stored in ChromaDB for fast retrieval
+4. **Smart Querying**: When you request a playlist, we use vector similarity and progressive filter relaxation to find perfect matches
+5. **Playlist Building**: Starting with a seed song, we build a cohesive journey that maintains your requested vibe
+
+The system uses cutting-edge AI to understand music on a fundamental level, going beyond simple genre matching to truly capture the feel and sound you're looking for.
