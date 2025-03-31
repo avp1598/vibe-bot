@@ -22,40 +22,17 @@ well-formed body payload for the /generate-playlist endpoint.
 Convert the user's input into the following JSON format:
 {
   "artists": ["Artist Name", "Travis Scott", "Drake", ...],  // List of artists properly capitalized
-  "adjectives": ["adj1", "adj2", ...],     // Words describing the mood/vibe
   "maxReleaseDate": YYYY,                  // Optional maximum release year (e.g. 2024)
+  "minReleaseDate": YYYY,                  // Optional minimum release year (e.g. 2024)
   "numSongs": N,                           // Number of songs requested (default: 10)
   "title": "Playlist Title"                // Banger title of the playlist
 }
 
 Guidelines:
 - Include only artists that are clearly desired in the playlist
-- Convert general mood descriptions into specific adjectives
-- Infer a reasonable maxReleaseDate if time periods are mentioned., default to 2025
+- Infer a reasonable maxReleaseDate if time periods are mentioned, default to 2025
 - Determine an appropriate numSongs based on context or default to 10
-- If the user does not mention artists, just return adjectives and maxReleaseDate
-- These are the only allowed adjectives for the endpoint: [
-    "Dark",
-    "Aggressive",
-    "Chill",
-    "Melancholic",
-    "Uplifting",
-    "Hypnotic",
-    "Paranoid",
-    "Playful",
-    "Confident",
-    "Sad",
-    "Moody",
-    "Euphoric",
-    "Energetic",
-    "Angry",
-    "Calm",
-    "Psychedelic",
-    "Cinematic",
-    "Bouncy",
-    "Atmospheric",
-    "Ambient"
-] use ONLY these adjectives
+- If the user does not mention artists, just return empty arrays for artists
 
 Conversation:
 {{recentMessages}}
@@ -83,12 +60,6 @@ export const parsePlaylistPromptAction: Action = {
       state = await runtime.updateRecentMessageState(state)
     }
 
-    if (callback) {
-      await callback({
-        text: 'Generating your playlist, hold tight...'
-      })
-    }
-
     try {
       const context = composeContext({
         state,
@@ -108,7 +79,10 @@ export const parsePlaylistPromptAction: Action = {
 
       const { playlist } = await generatePlaylist(generatePlaylistContent)
 
-      const playlistId = await youTubeClient.createPlaylist(generatePlaylistContent.title, playlist)
+      const playlistId = await youTubeClient.createPlaylist(
+        generatePlaylistContent.title,
+        playlist.map((p) => p.id)
+      )
 
       if (callback) {
         await callback({

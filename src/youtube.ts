@@ -54,27 +54,15 @@ class YouTubeClient {
       `✅ Created playlist: ${title} (https://www.youtube.com/playlist?list=${playlistId})`
     )
 
-    // Process videos in batches of 5 with retry logic
-    const batchSize = 4
+    // Process videos sequentially with retry logic
+    for (let i = 0; i < videoIds.length; i++) {
+      const videoId = videoIds[i]
+      await this.addVideoToPlaylist(playlistId, videoId)
+      console.log(`Progress: ${i + 1}/${videoIds.length} videos added`)
 
-    for (let i = 0; i < videoIds.length; i += batchSize) {
-      // Get current batch of videos
-      const batch = videoIds.slice(i, i + batchSize)
-
-      // Process current batch in parallel with retry
-      const batchPromises = batch.map(async (videoId) => {
-        await this.addVideoToPlaylist(playlistId, videoId)
-      })
-
-      // Wait for current batch to complete before moving to next batch
-      await Promise.all(batchPromises)
-      const currentBatch = Math.floor(i / batchSize) + 1
-      const totalBatches = Math.ceil(videoIds.length / batchSize)
-      console.log(`✅ Completed batch ${currentBatch} of ${totalBatches}`)
-
-      // Add a short delay between batches to avoid rate limiting
-      if (i + batchSize < videoIds.length) {
-        await new Promise((resolve) => setTimeout(resolve, 1000))
+      // Add a small delay between requests to avoid rate limiting
+      if (i < videoIds.length - 1) {
+        await new Promise((resolve) => setTimeout(resolve, 500))
       }
     }
 
