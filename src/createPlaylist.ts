@@ -1,49 +1,66 @@
 import type { Action, Content, HandlerCallback, IAyaRuntime, Memory, State } from '@tribesxyz/ayaos'
 
 import { ayaLogger, composeContext, generateObject, ModelClass } from '@tribesxyz/ayaos'
-import { z } from 'zod'
+import { GeneratePlaylistSchema } from '@/types'
+import { generatePlaylist } from '@/server'
+import { youTubeClient } from '@/youtube'
 
-const PlaylistScoringProfileSchema = z.object({
-  context: z.enum(['party', 'exploration', 'gym', 'chill', 'study', 'mix']),
-  embeddingWeight: z.number().min(0).max(1),
-  popularityWeight: z.number().min(0).max(1),
-  bpmWeight: z.number().min(0).max(1),
-  artistWeight: z.number().min(0).max(1),
-  artistBias: z.array(z.string()),
-  preferredAdjectives: z.array(z.string()),
-  maxPopularity: z.number().min(0).max(100).optional()
-})
-
-export interface PlaylistScoringContent extends Content {
-  context: string
-  embeddingWeight: number
-  popularityWeight: number
-  bpmWeight: number
-  artistWeight: number
-  artistBias: string[]
-  preferredAdjectives: string[]
-  maxPopularity?: number
+export interface GeneratePlaylistContent extends Content {
+  artists: string[]
+  adjectives: string[]
+  maxReleaseDate: number
+  numSongs: number
 }
 
-const scoringProfileTemplate = `
-You are a music recommendation engine that parses natural language playlist prompts and 
-returns a scoring profile.
+const playlistGenerationTemplate = `
+You are a music recommendation assistant that converts natural language requests into structured 
+API parameters for a playlist generation system.
 
-Your job is to interpret the intent, context, energy, and preferences from the prompt and respond 
-with:
-- context: one of ["party", "exploration", "gym", "chill", "study", "mix"]
-- embeddingWeight: how important is the overall vibe match (0-1)
-- popularityWeight: how important is popularity (0-1)
-- bpmWeight: how important is tempo/energy (0-1)
-- artistWeight: how important are the mentioned artists (0-1)
-- artistBias: artists the user wants to hear
-- preferredAdjectives: words that describe the desired vibe (e.g., "moody", "trap", "banger")
-- maxPopularity: optional cap on popularity (0-100)
+Your job is to analyze the user's request and extract the relevant information to create a 
+well-formed body payload for the /generate-playlist endpoint.
+
+Convert the user's input into the following JSON format:
+{
+  "artists": ["Artist Name", "Travis Scott", "Drake", ...],  // List of artists properly capitalized
+  "adjectives": ["adj1", "adj2", ...],     // Words describing the mood/vibe
+  "maxReleaseDate": YYYY,                  // Optional maximum release year (e.g. 2024)
+  "numSongs": N,                           // Number of songs requested (default: 10)
+  "title": "Playlist Title"                // Banger title of the playlist
+}
+
+Guidelines:
+- Include only artists that are clearly desired in the playlist
+- Convert general mood descriptions into specific adjectives
+- Infer a reasonable maxReleaseDate if time periods are mentioned., default to 2025
+- Determine an appropriate numSongs based on context or default to 10
+- If the user does not mention artists, just return adjectives and maxReleaseDate
+- These are the only allowed adjectives for the endpoint: [
+    "Dark",
+    "Aggressive",
+    "Chill",
+    "Melancholic",
+    "Uplifting",
+    "Hypnotic",
+    "Paranoid",
+    "Playful",
+    "Confident",
+    "Sad",
+    "Moody",
+    "Euphoric",
+    "Energetic",
+    "Angry",
+    "Calm",
+    "Psychedelic",
+    "Cinematic",
+    "Bouncy",
+    "Atmospheric",
+    "Ambient"
+] use ONLY these adjectives
 
 Conversation:
 {{recentMessages}}
 
-Respond with a JSON object.
+Respond with a JSON object only. No explanations or additional text.
 `
 
 export const parsePlaylistPromptAction: Action = {
@@ -66,27 +83,47 @@ export const parsePlaylistPromptAction: Action = {
       state = await runtime.updateRecentMessageState(state)
     }
 
-    const context = composeContext({
-      state,
-      template: scoringProfileTemplate
-    })
-
-    const raw = (
-      await generateObject({
-        runtime,
-        context,
-        modelClass: ModelClass.LARGE,
-        schema: PlaylistScoringProfileSchema
-      })
-    ).object
-
-    const scoringProfile = PlaylistScoringProfileSchema.parse(raw)
-
     if (callback) {
       await callback({
-        text: `Scoring profile generated ✅: ${JSON.stringify(scoringProfile, null, 2)}`,
-        content: scoringProfile
+        text: 'Generating your playlist, hold tight...'
       })
+    }
+
+    try {
+      const context = composeContext({
+        state,
+        template: playlistGenerationTemplate
+      })
+
+      const raw = (
+        await generateObject({
+          runtime,
+          context,
+          modelClass: ModelClass.LARGE,
+          schema: GeneratePlaylistSchema
+        })
+      ).object
+
+      const generatePlaylistContent = GeneratePlaylistSchema.parse(raw)
+
+      const { playlist } = await generatePlaylist(generatePlaylistContent)
+
+      const playlistId = await youTubeClient.createPlaylist(generatePlaylistContent.title, playlist)
+
+      if (callback) {
+        await callback({
+          text: `Checkout your playlist here: https://www.youtube.com/playlist?list=${playlistId}`
+        })
+      }
+    } catch (error) {
+      ayaLogger.error('Error creating playlist', error)
+      if (callback) {
+        await callback({
+          text:
+            'Error creating playlist, error: ' +
+            (error instanceof Error ? error.message : String(error))
+        })
+      }
     }
 
     return true
@@ -96,14 +133,14 @@ export const parsePlaylistPromptAction: Action = {
       {
         user: '{{user1}}',
         content: {
-          text: 'Make me a party playlist with high energy trap bangers, mostly Carti and Travis, not too mainstream'
+          text: 'Make me a 20 song playlist with high energy trap bangers, mostly Carti and Travis'
         }
       },
       {
         user: '{{user2}}',
         content: {
           action: 'PARSE_PLAYLIST_PROMPT',
-          text: 'Scoring profile generated ✅'
+          text: 'Generating your playlist, hold tight...'
         }
       }
     ],
@@ -111,14 +148,14 @@ export const parsePlaylistPromptAction: Action = {
       {
         user: '{{user1}}',
         content: {
-          text: 'I need a hip hop playlist with classic 90s tracks, think Nas and Biggie'
+          text: 'Give me a hypnotic, psychedelic playlist with a lot of bass'
         }
       },
       {
         user: '{{user2}}',
         content: {
           action: 'PARSE_PLAYLIST_PROMPT',
-          text: 'Scoring profile generated ✅'
+          text: 'Generating your playlist, hold tight...'
         }
       }
     ],
@@ -126,14 +163,14 @@ export const parsePlaylistPromptAction: Action = {
       {
         user: '{{user1}}',
         content: {
-          text: 'Create a workout playlist with high tempo hip-hop tracks, lots of Kendrick and J. Cole'
+          text: 'Create a workout playlist with old (<2020) bangers from Travis Scott and 21 Savage and Offset'
         }
       },
       {
         user: '{{user2}}',
         content: {
           action: 'PARSE_PLAYLIST_PROMPT',
-          text: 'Scoring profile generated ✅'
+          text: 'Generating your playlist, hold tight...'
         }
       }
     ],
@@ -141,14 +178,14 @@ export const parsePlaylistPromptAction: Action = {
       {
         user: '{{user1}}',
         content: {
-          text: 'I want a chill hip hop playlist for a Sunday morning, with artists like Mac Miller and Chance the Rapper'
+          text: 'I want a chill hip hop playlist for a Sunday morning with Migos and Drake'
         }
       },
       {
         user: '{{user2}}',
         content: {
           action: 'PARSE_PLAYLIST_PROMPT',
-          text: 'Scoring profile generated ✅'
+          text: 'Generating your playlist, hold tight...'
         }
       }
     ]
