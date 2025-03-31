@@ -70,42 +70,8 @@ Whether you're chilling solo, throwing a house party, or exploring new sonic tex
 
 - **CLMR Embedding Model**: Converts complex audio characteristics into vector embeddings
 - **ChromaDB**: Vector database for lightning-fast similarity search
-- **Flask API**: Simple, reliable backend for playlist generation requests
 - **Progressive Relaxation Algorithm**: Smart filtering system that ensures you always get the number of songs you request
 - **YouTube Integration**: Seamless playback of your generated playlists
-
----
-
-## 📡 API Endpoints
-
-### Generate Playlist
-
-```
-POST /generate-playlist
-
-{
-  "artists": ["Travis Scott", "21 Savage", "Offset"],
-  "adjectives": ["Chill", "Hypnotic"],
-  "maxReleaseDate": 2022,
-  "numSongs": 10
-}
-```
-
-Returns an array of YouTube IDs that can be played directly:
-
-```
-{
-  "playlist": ["dGdZjaZRpbE", "EGJ7lxoRhlA", "lgj851mZcfA", "ZzqABxPOQZE", ...]
-}
-```
-
-### Stream Song
-
-```
-GET /song/{youtube_id}
-```
-
-Streams the audio file for the requested YouTube ID.
 
 ---
 
@@ -114,11 +80,9 @@ Streams the audio file for the requested YouTube ID.
 ```bash
 git clone https://github.com/avp1598/vibe-bot.git
 cd vibe-bot
-pip install -r requirements.txt
-python server.py
+bun install
+bun dev
 ```
-
-Ensure you have ChromaDB set up with embedded songs before running the server.
 
 ---
 
